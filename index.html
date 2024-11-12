@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Route Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Driver Route Management</h1>
+    <nav>
+        <button class="tab-button" onclick="showTab('drivers')">Drivers</button>
+        <button class="tab-button" onclick="showTab('routes')">Routes</button>
+        <button class="tab-button" onclick="showTab('planning')">Planning</button>
+    </nav>
+    <div id="extras-info">
+        Extras: <span id="extras-count">0</span>
+    </div>
+    <div id="drivers" class="tab-content">
+        <h2>Drivers</h2>
+        <input type="text" id="driver-name" placeholder="Driver Name">
+        <input type="number" id="driver-seniority" placeholder="Seniority Number">
+        <input type="text" id="driver-route" placeholder="Route ID">
+        <select id="driver-goinghome">
+            <option value="Unconfirmed">Unconfirmed</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Maybe">Maybe</option>
+        </select>
+        <input type="text" id="driver-notes" placeholder="Notes">
+        <button onclick="addDriver()">Add Driver</button>
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortTable('drivers', 0)">Seniority</th>
+                    <th onclick="sortTable('drivers', 1)">Name</th>
+                    <th onclick="sortTable('drivers', 2)">RouteID</th>
+                    <th onclick="sortTable('drivers', 3)">Going Home</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="driver-table-body">
+            </tbody>
+        </table>
+    </div>
+    <div id="routes" class="tab-content">
+        <h2>Routes</h2>
+        <input type="text" id="route-id" placeholder="Route ID">
+        <input type="text" id="route-name" placeholder="Route Name">
+        <input type="text" id="route-notes" placeholder="Notes">
+        <button onclick="addRoute()">Add Route</button>
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortTable('routes', 0)">RouteID</th>
+                    <th onclick="sortTable('routes', 1)">Route Name</th>
+                    <th onclick="sortTable('routes', 2)">Assigned Driver</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="route-table-body">
+            </tbody>
+        </table>
+    </div>
+    <div id="planning" class="tab-content">
+        <h2>Planning</h2>
+        <div id="unassigned-drivers">
+            <h3>Unassigned Drivers</h3>
+            <ul id="unassigned-driver-list"></ul>
+        </div>
+        <div id="unassigned-routes">
+            <h3>Unassigned Routes</h3>
+            <ul id="unassigned-route-list"></ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
