@@ -206,7 +206,7 @@ function populateDriverTable() {
                 ` : `
                     <select onchange="assignRoute(${index}, this.value)">
                         <option value="">Select Route</option>
-                        ${routes.filter(route => route.assignedDriver === null).map(route => `<option value="${route.routeId}">${route.routeId}</option>`).join('')}
+                        ${routes.map(route => route.assignedDriver === null ? `<option value="${route.routeId}">${route.routeId}</option>` : '').join('')}
                     </select>
                 `}
             </td>
@@ -408,11 +408,19 @@ function assignDriver(routeIndex, driverName) {
     }
 }
 
+function editNotes(driverIndex) {
+    const newNotes = prompt('Enter new notes:', drivers[driverIndex].notes);
+    if (newNotes !== null) {
+        drivers[driverIndex].notes = newNotes;
+        populateDriverTable(); // Update the table to reflect changes
+    }
+}
+
 function editRouteNotes(routeIndex) {
     const newNotes = prompt('Enter new notes:', routes[routeIndex].notes);
     if (newNotes !== null) {
         routes[routeIndex].notes = newNotes;
-        populateRouteTable();
+        populateRouteTable(); // Update the table to reflect changes
     }
 }
 
