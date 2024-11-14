@@ -5,6 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver Route Management</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            margin: 0 10px;
+            padding: 10px 20px;
+        }
+
+        #extras-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .form-container {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .form-container input,
+            .form-container select,
+            .form-container button {
+                flex: 1 1 30%;
+                margin: 10px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .form-container {
+                display: block;
+            }
+
+            .form-container input,
+            .form-container select,
+            .form-container button {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Driver Route Management</h1>
@@ -18,17 +77,19 @@
     </div>
     <div id="drivers" class="tab-content">
         <h2>Drivers</h2>
-        <input type="text" id="driver-name" placeholder="Driver Name">
-        <input type="number" id="driver-seniority" placeholder="Seniority Number">
-        <input type="text" id="driver-route" placeholder="Route ID">
-        <select id="driver-goinghome">
-            <option value="Unconfirmed">Unconfirmed</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            <option value="Maybe">Maybe</option>
-        </select>
-        <input type="text" id="driver-notes" placeholder="Notes">
-        <button onclick="addDriver()">Add Driver</button>
+        <div class="form-container">
+            <input type="text" id="driver-name" placeholder="Driver Name">
+            <input type="number" id="driver-seniority" placeholder="Seniority Number">
+            <input type="text" id="driver-route" placeholder="Route ID">
+            <select id="driver-goinghome">
+                <option value="Unconfirmed">Unconfirmed</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Maybe">Maybe</option>
+            </select>
+            <input type="text" id="driver-notes" placeholder="Notes">
+            <button onclick="addDriver()">Add Driver</button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -45,10 +106,12 @@
     </div>
     <div id="routes" class="tab-content">
         <h2>Routes</h2>
-        <input type="text" id="route-id" placeholder="Route ID">
-        <input type="text" id="route-name" placeholder="Route Name">
-        <input type="text" id="route-notes" placeholder="Notes">
-        <button onclick="addRoute()">Add Route</button>
+        <div class="form-container">
+            <input type="text" id="route-id" placeholder="Route ID">
+            <input type="text" id="route-name" placeholder="Route Name">
+            <input type="text" id="route-notes" placeholder="Notes">
+            <button onclick="addRoute()">Add Route</button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -73,6 +136,19 @@
             <ul id="unassigned-route-list"></ul>
         </div>
     </div>
+    <script>
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.getElementById(tabId).style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('drivers'); // Show the default tab on page load
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
