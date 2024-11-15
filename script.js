@@ -190,12 +190,10 @@ function updateExtrasCount() {
 
 function populateDriverTable() {
     const tableBody = document.getElementById('driver-table-body');
-    console.log('Populating driver table');
-    console.log('Drivers:', drivers);
     tableBody.innerHTML = '';
     drivers.forEach((driver, index) => {
         const row = document.createElement('tr');
-        row.style.backgroundColor = getRowColor(driver.goingHome); // Set row color based on goingHome status
+        row.style.backgroundColor = getRowColor(driver.goingHome);
         row.innerHTML = `
             <td>${driver.seniority}</td>
             <td>${driver.name}</td>
@@ -203,12 +201,14 @@ function populateDriverTable() {
                 ${driver.routeId !== 'Unassigned' ? `
                     <span>${driver.routeId}</span>
                     <button onclick="unassignRoute(${index})">Unassign</button>
-                ` : `
+                ` : (driver.goingHome !== 'Yes' ? `
                     <select onchange="assignRoute(${index}, this.value)">
                         <option value="">Select Route</option>
-                        ${routes.map(route => route.assignedDriver === null ? `<option value="${route.routeId}">${route.routeId}</option>` : '').join('')}
+                        ${routes.filter(route => route.assignedDriver === null).map(route => `<option value="${route.routeId}">${route.routeId}</option>`).join('')}
                     </select>
-                `}
+                ` : `
+                    <span>Unassigned</span>
+                `)}
             </td>
             <td>${driver.goingHome}</td>
             <td>
@@ -216,9 +216,7 @@ function populateDriverTable() {
                 <button onclick="editNotes(${index})">Edit</button>
             </td>
         `;
-        console.log('Adding row:', row);
 
-        // Create buttons for changing Going Home status
         const buttonContainer = document.createElement('span');
         buttonContainer.style.display = 'inline-flex';
         buttonContainer.style.alignItems = 'center';
@@ -515,8 +513,7 @@ function assignDriverToRoute(routeId) {
 
 // Event listeners for buttons and initializing lists
 document.addEventListener('DOMContentLoaded', () => {
-    showTab('drivers');
-    populateDriverTable();
+    populateDriverTable(); // Ensure the table is populated on page load
     populateRouteTable();
     updateExtrasCount(); // Initialize extras count on load
 });
